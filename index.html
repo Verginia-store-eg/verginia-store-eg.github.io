@@ -1,272 +1,520 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>فروع فيرجينيا</title>
+<title>دليل الفروع | Verginia</title>
+
+<!-- استدعاء الخطوط -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Plus+Jakarta+Sans:wght@700;800;900&display=swap" rel="stylesheet">
+
 <style>
+  /* المتغيرات الأساسية - الوضع الفاتح (ذهبي فاتح / شامبين) */
+  :root[data-theme="light"] {
+    --bg-color: #fcfbf9;
+    --panel-bg: #ffffff;
+    --text-primary: #292524;
+    --text-secondary: #78716c;
+    
+    --accent-color: #d4af37; /* ذهبي فاتح ناعم */
+    --accent-hover: #c59b27;
+    --accent-text: #8c6d15;  /* للنصوص لضمان وضوح القراءة */
+    --accent-light: rgba(212, 175, 55, 0.12);
+    
+    --border-color: #f0ede6;
+    --card-shadow: 0 10px 25px -5px rgba(212, 175, 55, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+    --input-bg: #faf9f6;
+    --chip-bg: #f7f5f0;
+  }
+
+  /* المتغيرات الأساسية - الوضع الداكن (ذهبي فاتح مشرق) */
+  :root[data-theme="dark"] {
+    --bg-color: #121110;
+    --panel-bg: #1c1a17;
+    --text-primary: #f5f5f4;
+    --text-secondary: #a8a29e;
+    
+    --accent-color: #e5c158; /* ذهبي فاتح بارز في الداكن */
+    --accent-hover: #d4af37;
+    --accent-text: #e5c158;
+    --accent-light: rgba(229, 193, 88, 0.15);
+    
+    --border-color: #2a2723;
+    --card-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+    --input-bg: #121110;
+    --chip-bg: #121110;
+  }
+
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
   }
+
   body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
-    background: #f5f0eb;
-    font-family: 'Segoe UI', 'Cairo', sans-serif;
-    direction: rtl;
-  }
-  .card {
-    background: #ffffff;
-    padding: 50px 45px 40px;
-    border-radius: 32px;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.12), 0 10px 25px rgba(0,0,0,0.06);
-    max-width: 560px;
-    width: 90%;
-    border: 1px solid #f0e8e0;
-    position: relative;
-    margin: 20px auto;
-  }
-  .card::before {
-    content: "VIRGINIA";
-    position: absolute;
-    top: -14px;
-    right: 45px;
-    background: #8b2f3a;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    padding: 4px 22px;
-    border-radius: 30px;
-    font-family: 'Segoe UI', sans-serif;
-  }
-  .title {
-    text-align: center;
-    font-size: 27px;
-    font-weight: 700;
-    color: #2d1f1a;
-    margin-bottom: 6px;
-    letter-spacing: 1px;
-  }
-  .subtitle {
-    text-align: center;
-    font-size: 14px;
-    color: #a0847a;
-    margin-bottom: 30px;
-    border-bottom: 2px dashed #e5d9d2;
-    padding-bottom: 18px;
-  }
-  .branch {
+    background-color: var(--bg-color);
+    font-family: 'Tajawal', sans-serif;
+    color: var(--text-primary);
     display: flex;
+    justify-content: center;
     align-items: flex-start;
-    gap: 16px;
-    margin-bottom: 20px;
-    padding: 16px 18px;
-    background: #fcf9f7;
-    border-radius: 18px;
-    border-right: 5px solid #8b2f3a;
-    transition: 0.2s;
+    padding: 20px 12px;
   }
-  .branch:last-child {
-    margin-bottom: 0;
+
+  .main-wrapper {
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
   }
-  .branch .icon {
-    font-size: 20px;
-    background: #f0e7e2;
-    width: 44px;
-    height: 44px;
+
+  /* الهيدر العلوي بشعار نصي فقط بدون مربعات */
+  .top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding: 4px 2px;
+  }
+
+  .brand-logo-text {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+  }
+
+  :root[data-theme="dark"] .brand-logo-text {
+    background: linear-gradient(135deg, #f3e5ab 0%, #e5c158 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .theme-btn {
+    background: var(--panel-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    flex-shrink: 0;
-    color: #6b3f33;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: var(--card-shadow);
   }
-  .branch .info {
-    flex: 1;
+
+  /* صندوق العنوان */
+  .title-section {
+    margin-bottom: 20px;
+    text-align: right;
   }
-  .branch .name {
-    font-weight: 700;
-    font-size: 17px;
-    color: #2d1f1a;
-    margin-bottom: 2px;
+
+  .title-section h1 {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--text-primary);
   }
-  .branch .address {
-    font-size: 15px;
-    color: #5c4a41;
-    line-height: 1.6;
-  }
-  .branch .address span {
-    display: inline-block;
-    background: #efe6e0;
-    padding: 0 10px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 600;
-    color: #6b3f33;
+
+  .title-section p {
+    font-size: 13px;
+    color: var(--text-secondary);
     margin-top: 4px;
   }
-  .map-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 10px;
-    padding: 6px 14px;
-    background-color: #8b2f3a;
-    color: #ffffff !important;
-    font-size: 12px;
-    font-weight: 600;
-    border-radius: 8px;
+
+  /* البحث */
+  .search-box {
+    position: relative;
+    margin-bottom: 16px;
+  }
+
+  .search-box input {
+    width: 100%;
+    padding: 14px 44px 14px 16px;
+    background: var(--panel-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 14px;
+    color: var(--text-primary);
+    outline: none;
+    box-shadow: var(--card-shadow);
+  }
+
+  .search-box input:focus {
+    border-color: var(--accent-color);
+  }
+
+  .search-box .icon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: var(--text-secondary);
+  }
+
+  /* الفلترة */
+  .filter-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 20px;
+    background: var(--panel-bg);
+    padding: 6px;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--card-shadow);
+  }
+
+  .tab-btn {
+    background: transparent;
     border: none;
+    padding: 10px 0;
+    border-radius: 12px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-secondary);
     cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-  }
-  .map-btn:hover {
-    background-color: #6b232c;
-  }
-  .map-btn:active {
-    transform: scale(0.97);
-  }
-  /* زرار الواتساب */
-  .whatsapp-section {
-    margin-top: 25px;
-    padding-top: 20px;
-    border-top: 1px solid #eee5df;
     text-align: center;
   }
-  .whatsapp-btn {
+
+  .tab-btn.active {
+    background: linear-gradient(135deg, #ebd280, var(--accent-color));
+    color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.25);
+  }
+
+  /* قائمة البطاقات */
+  .cards-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .branch-card {
+    background: var(--panel-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 18px;
+    box-shadow: var(--card-shadow);
+  }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .branch-name {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .region-badge {
+    font-size: 11px;
+    font-weight: 700;
+    background: var(--accent-light);
+    color: var(--accent-text);
+    padding: 3px 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(212, 175, 55, 0.25);
+  }
+
+  .address-text {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+
+  .mark-text {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent-text);
+    margin-bottom: 14px;
+  }
+
+  .card-btns {
+    display: flex;
+    gap: 8px;
+  }
+
+  .map-btn {
+    flex: 2;
+    background: linear-gradient(135deg, #ebd280, var(--accent-color));
+    color: #ffffff !important;
+    text-decoration: none;
+    text-align: center;
+    padding: 10px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    box-shadow: 0 4px 10px rgba(212, 175, 55, 0.2);
+  }
+
+  .map-btn:hover {
+    opacity: 0.95;
+  }
+
+  .copy-btn {
+    flex: 1;
+    background: var(--chip-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 10px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Tajawal', sans-serif;
+  }
+
+  .no-results {
+    text-align: center;
+    padding: 30px;
+    color: var(--text-secondary);
+    font-size: 14px;
+    display: none;
+  }
+
+  /* الفوتر */
+  .footer-box {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+  }
+
+  .whatsapp-link {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    width: 100%;
-    padding: 12px 20px;
-    background-color: #25d366;
-    color: #ffffff !important;
+    background: #25d366;
+    color: #ffffff;
     text-decoration: none;
-    font-size: 15px;
-    font-weight: 700;
+    padding: 12px 24px;
     border-radius: 14px;
-    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
-    transition: background-color 0.2s ease, transform 0.1s ease;
+    font-weight: 700;
+    font-size: 14px;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.25);
   }
-  .whatsapp-btn:hover {
-    background-color: #1ebc57;
+
+  .whatsapp-link:hover {
+    background: #20bd5a;
+    transform: translateY(-2px);
   }
-  .whatsapp-btn:active {
-    transform: scale(0.98);
-  }
-  .footer {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 12px;
-    color: #baa99f;
-    letter-spacing: 1px;
+
+  .whatsapp-icon {
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
   }
 </style>
 </head>
 <body>
-<div class="card">
-  <div class="title">📍 فروعنا</div>
-  <div class="subtitle">شكراً لكونكم جزءاً من رحلتنا</div>
 
-  <!-- الفرع الأول -->
-  <div class="branch">
-    <div class="icon">📍</div>
-    <div class="info">
-      <div class="name">Verginia 1</div>
-      <div class="address">
-        21 شارع لاجتيه - الإبراهيمية<br>
-        <span>بجوار محمصة مفيد</span>
-      </div>
-      <button onclick="openMap('21 شارع لاجتيه الإبراهيمية الإسكندرية')" class="map-btn">
-        الموقع على الخريطة 📍
-      </button>
-    </div>
+<div class="main-wrapper">
+
+  <!-- الهيدر العلوي بالاسم فقط بدون مربعات -->
+  <div class="top-header">
+    <span class="brand-logo-text">VERGINIA</span>
+    <button class="theme-btn" id="themeBtn" title="تغيير المظهر">
+      <span id="themeIcon">🌙</span>
+    </button>
   </div>
 
-  <!-- الفرع الثاني -->
-  <div class="branch">
-    <div class="icon">📍</div>
-    <div class="info">
-      <div class="name">Verginia 2</div>
-      <div class="address">
-        12 شارع لاجتيه<br>
-        <span>أمام مستشفى السجيني</span>
-      </div>
-      <button onclick="openMap('12 شارع لاجتيه الإسكندرية')" class="map-btn">
-        الموقع على الخريطة 📍
-      </button>
-    </div>
+  <!-- العنوان -->
+  <div class="title-section">
+    <h1>فروعنا المتاحة 📍</h1>
+    <p>اختر الفرع الأقرب إليك للوصول المباشر عبر الخريطة</p>
   </div>
 
-  <!-- الفرع الثالث -->
-  <div class="branch">
-    <div class="icon">📍</div>
-    <div class="info">
-      <div class="name">Verginia 3</div>
-      <div class="address">
-        25 شارع الجلاء - فيكتوريا<br>
-        <span>أمام السندباد السوري</span>
-      </div>
-      <button onclick="openMap('25 شارع الجلاء فيكتوريا الإسكندرية')" class="map-btn">
-        الموقع على الخريطة 📍
-      </button>
-    </div>
+  <!-- البحث -->
+  <div class="search-box">
+    <span class="icon">🔍</span>
+    <input type="text" id="searchInput" placeholder="ابحث باسم الفرع أو المعلم القريب..." onkeyup="filterBranches()">
   </div>
 
-  <!-- الفرع الرابع -->
-  <div class="branch">
-    <div class="icon">👚</div>
-    <div class="info">
-      <div class="name">Fimka</div>
-      <div class="address">
-        48 شارع لاجتيه<br>
-        <span>أسفل سنتر لاجتيه</span>
-      </div>
-      <button onclick="openMap('48 شارع لاجتيه الإسكندرية')" class="map-btn">
-        الموقع على الخريطة 📍
-      </button>
-    </div>
+  <!-- الفلترة -->
+  <div class="filter-tabs">
+    <button class="tab-btn active" onclick="setFilter('all', this)">✨ الكل</button>
+    <button class="tab-btn" onclick="setFilter('الإبراهيمية', this)">📍 الإبراهيمية</button>
+    <button class="tab-btn" onclick="setFilter('الجلاء', this)">📍 الجلاء</button>
   </div>
 
-  <!-- الفرع الخامس -->
-  <div class="branch">
-    <div class="icon">👗</div>
-    <div class="info">
-      <div class="name">Beray</div>
-      <div class="address">
-        48 شارع لاجتيه<br>
-        <span>أسفل سنتر لاجتيه</span>
+  <!-- قائمة الفروع -->
+  <div class="cards-list" id="branchesList">
+
+    <!-- فرع 1 -->
+    <div class="branch-card" data-region="الإبراهيمية" data-search="verginia 1 فيرجينيا 1 لاجتيه مفيد">
+      <div class="card-top">
+        <div class="branch-name">🏬 Verginia 1</div>
+        <span class="region-badge">الإبراهيمية</span>
       </div>
-      <button onclick="openMap('48 شارع لاجتيه الإسكندرية')" class="map-btn">
-        الموقع على الخريطة 📍
-      </button>
+      <div class="address-text">21 شارع لاجتيه - الإبراهيمية</div>
+      <div class="mark-text">📍 بجوار محمصة مفيد</div>
+      <div class="card-btns">
+        <a href="https://maps.google.com/?q=21+شارع+لاجتيه+الإبراهيمية+الإسكندرية" target="_blank" class="map-btn">
+          <span>اتجاهات الخريطة</span> 🗺️
+        </a>
+        <button class="copy-btn" onclick="copyAddress('21 شارع لاجتيه - الإبراهيمية - بجوار محمصة مفيد')">نسخ 📋</button>
+      </div>
     </div>
+
+    <!-- فرع 2 -->
+    <div class="branch-card" data-region="الإبراهيمية" data-search="verginia 2 فيرجينيا 2 لاجتيه السجيني">
+      <div class="card-top">
+        <div class="branch-name">🏬 Verginia 2</div>
+        <span class="region-badge">الإبراهيمية</span>
+      </div>
+      <div class="address-text">12 شارع لاجتيه - الإبراهيمية</div>
+      <div class="mark-text">📍 أمام مستشفى السجيني</div>
+      <div class="card-btns">
+        <a href="https://maps.google.com/?q=12+شارع+لاجتيه+الإسكندرية" target="_blank" class="map-btn">
+          <span>اتجاهات الخريطة</span> 🗺️
+        </a>
+        <button class="copy-btn" onclick="copyAddress('12 شارع لاجتيه - الإبراهيمية - أمام مستشفى السجيني')">نسخ 📋</button>
+      </div>
+    </div>
+
+    <!-- فرع 3 -->
+    <div class="branch-card" data-region="الجلاء" data-search="verginia 3 فيرجينيا 3 فيكتوريا الجلاء السندباد">
+      <div class="card-top">
+        <div class="branch-name">🏬 Verginia 3</div>
+        <span class="region-badge">شارع الجلاء</span>
+      </div>
+      <div class="address-text">25 شارع الجلاء - فيكتوريا</div>
+      <div class="mark-text">📍 أمام السندباد السوري</div>
+      <div class="card-btns">
+        <a href="https://maps.google.com/?q=25+شارع+الجلاء+فيكتوريا+الإسكندرية" target="_blank" class="map-btn">
+          <span>اتجاهات الخريطة</span> 🗺️
+        </a>
+        <button class="copy-btn" onclick="copyAddress('25 شارع الجلاء - فيكتوريا - أمام السندباد السوري')">نسخ 📋</button>
+      </div>
+    </div>
+
+    <!-- فرع 4 -->
+    <div class="branch-card" data-region="الإبراهيمية" data-search="fimka فيمكا لاجتيه">
+      <div class="card-top">
+        <div class="branch-name">👚 Fimka</div>
+        <span class="region-badge">الإبراهيمية</span>
+      </div>
+      <div class="address-text">48 شارع لاجتيه - الإبراهيمية</div>
+      <div class="mark-text">📍 أسفل سنتر لاجتيه</div>
+      <div class="card-btns">
+        <a href="https://maps.google.com/?q=48+شارع+لاجتيه+الإسكندرية" target="_blank" class="map-btn">
+          <span>اتجاهات الخريطة</span> 🗺️
+        </a>
+        <button class="copy-btn" onclick="copyAddress('48 شارع لاجتيه - الإبراهيمية - أسفل سنتر لاجتيه')">نسخ 📋</button>
+      </div>
+    </div>
+
+    <!-- فرع 5 -->
+    <div class="branch-card" data-region="الإبراهيمية" data-search="beray بيري لاجتيه">
+      <div class="card-top">
+        <div class="branch-name">👗 Beray</div>
+        <span class="region-badge">الإبراهيمية</span>
+      </div>
+      <div class="address-text">48 شارع لاجتيه - الإبراهيمية</div>
+      <div class="mark-text">📍 أسفل سنتر لاجتيه</div>
+      <div class="card-btns">
+        <a href="https://maps.google.com/?q=48+شارع+لاجتيه+الإسكندرية" target="_blank" class="map-btn">
+          <span>اتجاهات الخريطة</span> 🗺️
+        </a>
+        <button class="copy-btn" onclick="copyAddress('48 شارع لاجتيه - الإبراهيمية - أسفل سنتر لاجتيه')">نسخ 📋</button>
+      </div>
+    </div>
+
   </div>
 
-  <!-- قسم الواتساب -->
-  <div class="whatsapp-section">
-    <a href="https://wa.me/201281222553" target="_blank" class="whatsapp-btn">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+  <div class="no-results" id="noResults">لا توجد نتائج تطابق بحثك حالياً 🔍</div>
+
+  <!-- الفوتر مع زر الواتساب -->
+  <div class="footer-box">
+    <a href="https://wa.me/201281222553" target="_blank" class="whatsapp-link">
+      <svg class="whatsapp-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19.05 4.91A9.816 9.816 0 0 0 12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01zm-7.01 15.24c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.264 8.264 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42a8.192 8.192 0 0 1 2.41 5.83c0 4.54-3.7 8.25-8.24 8.25zm4.52-6.18c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.78.97-.15.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.15-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.15.17-.25.25-.42.08-.17.04-.31-.02-.43s-.56-1.34-.76-1.84c-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.12.17 1.77 2.71 4.3 3.8.6.26 1.07.41 1.44.53.61.19 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.11-.23-.18-.48-.3z"/>
       </svg>
-      تواصل معنا عبر واتساب
+      <span>تواصل معنا عبر واتساب</span>
     </a>
   </div>
 
-  <div class="footer">✦ ننتظرك في أقرب فرع ✦</div>
 </div>
 
 <script>
-  function openMap(query) {
-    var url = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(query);
-    window.open(url, '_system');
+  // التبديل بين الوضع الفاتح والداكن
+  const themeBtn = document.getElementById('themeBtn');
+  const themeIcon = document.getElementById('themeIcon');
+  const root = document.documentElement;
+
+  themeBtn.addEventListener('click', () => {
+    const isDark = root.getAttribute('data-theme') === 'dark';
+    root.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    themeIcon.textContent = isDark ? '🌙' : '☀️';
+  });
+
+  // الفلترة
+  let activeFilter = 'all';
+
+  function setFilter(region, element) {
+    activeFilter = region;
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    element.classList.add('active');
+    filterBranches();
+  }
+
+  function filterBranches() {
+    const searchText = document.getElementById('searchInput').value.toLowerCase().trim();
+    const cards = document.querySelectorAll('.branch-card');
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+      const cardRegion = card.getAttribute('data-region');
+      const searchData = card.getAttribute('data-search').toLowerCase();
+      const cardText = card.innerText.toLowerCase();
+
+      const matchesFilter = (activeFilter === 'all') || (cardRegion === activeFilter);
+      const matchesSearch = cardText.includes(searchText) || searchData.includes(searchText);
+
+      if (matchesFilter && matchesSearch) {
+        card.style.display = 'block';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
+  }
+
+  function copyAddress(text) {
+    navigator.clipboard.writeText(text).then(() => {
+      alert('تم نسخ العنوان بنجاح: ' + text);
+    });
   }
 </script>
+
 </body>
 </html>
